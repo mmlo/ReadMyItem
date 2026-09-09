@@ -1,0 +1,22 @@
+pluginManagement {
+	repositories {
+		maven("https://maven.fabricmc.net/") { name = "Fabric" }
+		maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
+		maven("https://maven.architectury.dev/") { name = "Architectury" }
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+plugins {
+	id("dev.kikugie.stonecutter") version "0.9.8"
+}
+
+stonecutter {
+	create(rootProject) {
+		versions("1.21.11")
+		vcsVersion = "1.21.11"
+	}
+}
+
+rootProject.name = "ReadMyItem"

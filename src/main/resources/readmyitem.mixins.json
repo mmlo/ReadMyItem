@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "dev.mml.readmyitem.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"AbstractContainerScreenMixin",
+		"AbstractContainerScreenAccessor",
+		"SoundEngineMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

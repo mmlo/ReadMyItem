@@ -1,0 +1,27 @@
+ReadMyItem
+==========
+Autor: mml
+
+Este programa é software livre sob a GNU GPL v3 ou posterior.
+
+Por quê GPL
+-----------
+A síntese de voz usa piper-jni (io.github.jvoice-project:piper-jni).
+O código Java dessa biblioteca é Apache-2.0, mas o JAR publicado inclui
+a biblioteca nativa do Piper (OHF-Voice/piper1-gpl), que é GPL-3.0.
+O trabalho combinado (este mod + piper-jni com nativos) é portanto GPL-3.0.
+
+Atribuições
+-----------
+- Piper / OHF Voice: https://github.com/OHF-Voice/piper1-gpl
+- piper-jni: https://github.com/jvoice-project/piper-jni (Apache-2.0 + GPL-3.0 no JAR)
+- Modelos oficiais pt_BR (Rhasspy / autores faber e edresson):
+  https://huggingface.co/rhasspy/piper-voices
+  Licença dos modelos: MIT (conforme model card v1.0.0)
+- Minecraft / Fabric / Cloth Config / Mod Menu: marcas e código dos respectivos autores.
+
+O jar publicado embute os modelos oficiais pt_BR (edresson-low e
+faber-medium) como resource. No jogo, esses arquivos são copiados do
+próprio jar para a pasta de config (não há download no boot).
+Atribuição: Rhasspy / OHF Voice / autores faber e edresson; MIT
+conforme model card v1.0.0.

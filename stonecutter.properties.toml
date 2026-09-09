@@ -1,0 +1,13 @@
+# See https://stonecutter.kikugie.dev/wiki/config/properties
+mod.id = "readmyitem"
+mod.name = "ReadMyItem"
+mod.group = "dev.mml.readmyitem"
+mod.version = "1.0.0"
+
+deps.fabric_loader = "0.19.5"
+loomx.loom_version = "1.17-SNAPSHOT"
+
+["1.21.11"]
+mod.mc_compat = "~1.21.11"
+mod.mc_releases = ["1.21.11"]
+deps.fabric_api = "0.141.6+1.21.11"

@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "readmyitem",
+	"version": "${version}",
+	"name": "ReadMyItem",
+	"description": "Ao passar o mouse sobre um item em qualquer inventário, o jogo lê o nome e a descrição em português do Brasil. Feito para crianças que ainda estão aprendendo a ler: a voz já vem no jar, sem download extra e sem abrir programas no PC.",
+	"authors": [
+		"mml"
+	],
+	"license": "GPL-3.0-or-later",
+	"icon": "assets/readmyitem/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.mml.readmyitem.ReadMyItemClient"
+		],
+		"modmenu": [
+			"dev.mml.readmyitem.ui.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"readmyitem.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*",
+		"cloth-config": "*"
+	}
+}
