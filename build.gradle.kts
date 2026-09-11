@@ -128,7 +128,6 @@ fun sha256File(file: java.io.File): String {
 tasks.register("downloadPiperVoices") {
 	group = "build"
 	description = "Baixa vozes Piper oficiais (allowlist + SHA-256) para o jar"
-	outputs.dir(piperVoiceDestRoot)
 	doLast {
 		val cacheDir = piperVoiceCache.asFile
 		cacheDir.mkdirs()
