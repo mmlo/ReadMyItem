@@ -13,10 +13,16 @@ public final class ItemIdentity {
 		}
 		var key = BuiltInRegistries.ITEM.getKey(stack.getItem());
 		String custom = "";
+		//? if >= 1.20.5 {
 		var name = stack.getCustomName();
 		if (name != null) {
 			custom = name.getString();
 		}
+		//?} else {
+		/*if (stack.hasCustomHoverName()) {
+			custom = stack.getHoverName().getString();
+		}*/
+		//?}
 		return key + "x" + stack.getCount() + "d" + stack.getDamageValue()
 				+ "@" + slotIndex + "~" + custom;
 	}

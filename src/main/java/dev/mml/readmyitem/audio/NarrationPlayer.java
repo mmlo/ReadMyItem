@@ -56,10 +56,18 @@ public final class NarrationPlayer {
 		if (client == null || client.options == null) {
 			return 1.0f;
 		}
+		//? if >= 1.21.11 {
 		float voice = client.options.getFinalSoundSourceVolume(SoundSource.VOICE);
 		if (voice > 0.001f) {
 			return voice;
 		}
 		return client.options.getFinalSoundSourceVolume(SoundSource.MASTER);
+		//?} else {
+		/*float voice = client.options.getSoundSourceVolume(SoundSource.VOICE);
+		if (voice > 0.001f) {
+			return voice;
+		}
+		return client.options.getSoundSourceVolume(SoundSource.MASTER);*/
+		//?}
 	}
 }

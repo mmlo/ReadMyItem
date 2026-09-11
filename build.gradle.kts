@@ -186,27 +186,38 @@ tasks.register("downloadPiperVoices") {
 
 tasks.processResources {
 	dependsOn("downloadPiperVoices")
+	val mcVer = project.property("minecraft_version").toString()
+	val mcCompat = if (mcVer.startsWith("1.20")) ">=1.20.1 <1.20.2" else "~1.21.11"
+	val javaReq = if (mcVer.startsWith("1.20")) ">=17" else ">=21"
 	val props = mapOf(
 		"version" to project.version.toString(),
-		"minecraft_version" to project.property("minecraft_version").toString(),
+		"minecraft_version" to mcVer,
+		"mc_compat" to mcCompat,
+		"java_version" to javaReq,
+		"java_release" to if (mcVer.startsWith("1.20")) 17 else 21
 	)
 	inputs.properties(props)
-	filesMatching("fabric.mod.json") {
+	filesMatching(listOf("fabric.mod.json", "readmyitem.mixins.json")) {
 		expand(props)
 	}
 }
 
+// 1.20.1 requires Java 17; 1.21.11 requires Java 21.
+val mcVersion = property("minecraft_version").toString()
+val javaVersion = if (mcVersion.startsWith("1.20")) JavaVersion.VERSION_17 else JavaVersion.VERSION_21
+val javaRelease = if (mcVersion.startsWith("1.20")) 17 else 21
+
 tasks.withType<JavaCompile>().configureEach {
 	options.encoding = "UTF-8"
-	options.release.set(21)
+	options.release.set(javaRelease)
 }
 
 java {
 	withSourcesJar()
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = javaVersion
+	targetCompatibility = javaVersion
 	toolchain {
-		languageVersion.set(JavaLanguageVersion.of(21))
+		languageVersion.set(JavaLanguageVersion.of(javaRelease))
 	}
 }
 

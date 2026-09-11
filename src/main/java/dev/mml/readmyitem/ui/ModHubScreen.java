@@ -1,7 +1,11 @@
 package dev.mml.readmyitem.ui;
 
 import dev.mml.readmyitem.tts.VoiceLibrary;
+//? if >= 1.20.5 {
 import net.minecraft.util.Util;
+//?} else {
+/*import net.minecraft.Util;*/
+//?}
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -59,11 +63,18 @@ public final class ModHubScreen extends Screen {
 
 	private void openVoiceFolder() {
 		VoiceLibrary.ensureVoiceDirectory();
+		//? if >= 1.20.5 {
 		Util.getPlatform().openPath(VoiceLibrary.voiceDirectory());
+		//?} else {
+		/*Util.getPlatform().openFile(VoiceLibrary.voiceDirectory().toFile());*/
+		//?}
 	}
 
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+		if (this.minecraft != null && this.minecraft.screen != this) {
+			return; // Cloth Config calls parent.render() in 1.20.1; prevent overlapping
+		}
 		super.render(graphics, mouseX, mouseY, delta);
 		graphics.drawCenteredString(this.font, this.title, this.width / 2, 28, 0xFFFFFF);
 		if (this.clothConfigMissing) {

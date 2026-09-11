@@ -7,7 +7,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+//? if >= 1.20.5 {
 import net.minecraft.world.item.Item;
+//?}
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.Nullable;
@@ -61,10 +63,16 @@ public final class TooltipExtractor {
 	}
 
 	private static String preferredName(ItemStack stack) {
+		//? if >= 1.20.5 {
 		Component custom = stack.getCustomName();
 		if (custom != null) {
 			return custom.getString();
 		}
+		//?} else {
+		/*if (stack.hasCustomHoverName()) {
+			return stack.getHoverName().getString();
+		}*/
+		//?}
 		return stack.getHoverName().getString();
 	}
 
@@ -82,11 +90,15 @@ public final class TooltipExtractor {
 		TooltipFlag flag = client != null && client.options.advancedItemTooltips
 				? TooltipFlag.ADVANCED
 				: TooltipFlag.NORMAL;
-		Item.TooltipContext context = client != null && client.level != null
-				? Item.TooltipContext.of(client.level)
-				: Item.TooltipContext.EMPTY;
 		try {
+			//? if >= 1.20.5 {
+			Item.TooltipContext context = client != null && client.level != null
+					? Item.TooltipContext.of(client.level)
+					: Item.TooltipContext.EMPTY;
 			return stack.getTooltipLines(context, player, flag);
+			//?} else {
+			/*return stack.getTooltipLines(player, flag);*/
+			//?}
 		} catch (Throwable t) {
 			return List.of(stack.getHoverName());
 		}

@@ -18,9 +18,14 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
+//? if >= 1.21.11 {
 import net.minecraft.resources.Identifier;
+//?} else {
+/*import net.minecraft.resources.ResourceLocation;*/
+//?}
 
 public final class ReadMyItemClient implements ClientModInitializer {
+	//? if >= 1.21.11 {
 	public static final KeyMapping.Category KEY_CATEGORY = KeyMapping.Category.register(
 			Identifier.fromNamespaceAndPath(ReadMyItemMod.MOD_ID, "main"));
 
@@ -39,6 +44,25 @@ public final class ReadMyItemClient implements ClientModInitializer {
 			InputConstants.Type.KEYSYM,
 			InputConstants.UNKNOWN.getValue(),
 			KEY_CATEGORY);
+	//?} else {
+	/*public static final String KEY_CATEGORY = "key.categories.readmyitem.main";
+
+	public static final KeyMapping TOGGLE_KEY = new KeyMapping(
+			"key.readmyitem.toggle",
+			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getValue(),
+			KEY_CATEGORY);
+	public static final KeyMapping REPEAT_KEY = new KeyMapping(
+			"key.readmyitem.repeat",
+			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getValue(),
+			KEY_CATEGORY);
+	public static final KeyMapping STOP_KEY = new KeyMapping(
+			"key.readmyitem.stop",
+			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getValue(),
+			KEY_CATEGORY);*/
+	//?}
 
 	private static PiperInProcessEngine engine;
 	private static boolean missingVoiceToastShown;
