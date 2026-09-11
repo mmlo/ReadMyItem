@@ -244,3 +244,7 @@ publishing {
 		}
 	}
 }
+
+tasks.matching { it.name == "stonecutterPrepare" }.configureEach {
+	dependsOn("downloadPiperVoices")
+}
