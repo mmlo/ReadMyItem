@@ -3,7 +3,11 @@ package dev.mml.readmyitem.ui;
 import dev.mml.readmyitem.config.ModConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+//? if >= 26 {
+/*import net.minecraft.client.gui.GuiGraphicsExtractor;*/
+//?} else {
 import net.minecraft.client.gui.GuiGraphics;
+//?}
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
@@ -28,7 +32,11 @@ public final class LargeTextOverlay {
 		visible = false;
 	}
 
+	//? if >= 26 {
+	/*public static void render(GuiGraphicsExtractor graphics, Screen screen) {*/
+	//?} else {
 	public static void render(GuiGraphics graphics, Screen screen) {
+	//?}
 		if (!visible || !ModConfig.get().overlay) {
 			return;
 		}
@@ -67,7 +75,11 @@ public final class LargeTextOverlay {
 				case TOP_LEFT -> x + 8;
 				case TOP_RIGHT -> x + boxWidth - font.width(line) - 8;
 			};
+			//? if >= 26 {
+			/*graphics.text(font, line, textX, textY, 0xFFFFFFFF, false);*/
+			//?} else {
 			graphics.drawString(font, line, textX, textY, 0xFFFFFFFF, false);
+			//?}
 			textY += lineHeight;
 		}
 	}

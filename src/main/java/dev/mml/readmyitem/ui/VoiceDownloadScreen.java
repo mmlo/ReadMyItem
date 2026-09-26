@@ -3,7 +3,11 @@ package dev.mml.readmyitem.ui;
 import dev.mml.readmyitem.ReadMyItemClient;
 import dev.mml.readmyitem.tts.OptionalOfficialDownload;
 import dev.mml.readmyitem.tts.VoiceChecksums;
+//? if >= 26 {
+/*import net.minecraft.client.gui.GuiGraphicsExtractor;*/
+//?} else {
 import net.minecraft.client.gui.GuiGraphics;
+//?}
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -57,11 +61,27 @@ public final class VoiceDownloadScreen extends Screen {
 	}
 
 	@Override
+	//? if >= 26 {
+	/*public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {*/
+	//?} else {
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+	//?}
+		//? if >= 26 {
+		/*super.extractRenderState(graphics, mouseX, mouseY, delta);*/
+		//?} else {
 		super.render(graphics, mouseX, mouseY, delta);
+		//?}
+		//? if >= 26 {
+		/*graphics.centeredText(this.font, this.title, this.width / 2, 30, 0xFFFFFFFF);*/
+		//?} else {
 		graphics.drawCenteredString(this.font, this.title, this.width / 2, 30, 0xFFFFFF);
+		//?}
 		if (!statusLine.isEmpty()) {
+			//? if >= 26 {
+			/*graphics.centeredText(this.font, statusLine, this.width / 2, this.height / 2 + 60, 0xFFFFFFAA);*/
+			//?} else {
 			graphics.drawCenteredString(this.font, statusLine, this.width / 2, this.height / 2 + 60, 0xFFFFAA);
+			//?}
 		}
 	}
 
@@ -69,7 +89,11 @@ public final class VoiceDownloadScreen extends Screen {
 	public void onClose() {
 		download.cancel();
 		if (this.minecraft != null) {
+			//? if >= 26 {
+			/*this.minecraft.gui.setScreen(parent);*/
+			//?} else {
 			this.minecraft.setScreen(parent);
+			//?}
 		}
 	}
 }

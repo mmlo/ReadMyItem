@@ -16,7 +16,7 @@ public final class UtteranceCache {
 		this.maxTextLength = maxTextLength;
 		this.map = new LinkedHashMap<>(16, 0.75f, true) {
 			@Override
-			protected boolean removeEldestEntry(Map.Entry<String, Entry> eldest) {
+			protected boolean removeEldestEntry(Map.Entry<String, UtteranceCache.Entry> eldest) {
 				return size() > UtteranceCache.this.maxEntries;
 			}
 		};

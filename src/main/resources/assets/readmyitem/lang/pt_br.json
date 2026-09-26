@@ -13,6 +13,8 @@
 	"readmyitem.hub.settings": "Configurações",
 	"readmyitem.hub.download": "Repor voz oficial (opcional)",
 	"readmyitem.hub.open_folder": "Abrir pasta das vozes",
+	"readmyitem.hub.copy_folder": "Copiar caminho das vozes",
+	"readmyitem.hub.folder_copied": "Caminho copiado",
 	"readmyitem.hub.done": "Pronto",
 	"readmyitem.hub.voice_ready": "Voz encontrada: %s",
 	"readmyitem.hub.voice_missing": "A voz bundled ainda não está pronta. O nome aparece na tela; a fala liga quando a extração terminar.",

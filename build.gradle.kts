@@ -10,7 +10,7 @@ plugins {
 	id("maven-publish")
 }
 
-version = "${property("mod_version")}+${property("minecraft_version")}"
+version = "${property("mod_version")}+${if (project.name == "26.3-rc-2") "26.3-all" else project.name}"
 group = property("maven_group") as String
 
 base {
@@ -40,9 +40,22 @@ loom {
 
 dependencies {
 	minecraft("com.mojang:minecraft:${property("minecraft_version")}")
-	mappings(loom.officialMojangMappings())
+	if (property("minecraft_version").toString().startsWith("26.")) {
+		mappings(files(rootProject.file("empty.jar")))
+	} else {
+		mappings(loom.officialMojangMappings())
+	}
 	modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
+	
+	val fapiVersion = property("fabric_api_version").toString()
+	modImplementation(fabricApi.module("fabric-api-base", fapiVersion))
+	modImplementation(fabricApi.module("fabric-lifecycle-events-v1", fapiVersion))
+	modImplementation(fabricApi.module("fabric-screen-api-v1", fapiVersion))
+	if (property("minecraft_version").toString().startsWith("26.")) {
+		modImplementation(fabricApi.module("fabric-key-mapping-api-v1", fapiVersion))
+	} else {
+		modImplementation(fabricApi.module("fabric-key-binding-api-v1", fapiVersion))
+	}
 
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:${property("cloth_config_version")}")
 	modCompileOnly("com.terraformersmc:modmenu:${property("modmenu_version")}")
@@ -186,14 +199,25 @@ tasks.register("downloadPiperVoices") {
 tasks.processResources {
 	dependsOn("downloadPiperVoices")
 	val mcVer = project.property("minecraft_version").toString()
-	val mcCompat = if (mcVer.startsWith("1.20")) ">=1.20.1 <1.20.2" else "~1.21.11"
-	val javaReq = if (mcVer.startsWith("1.20")) ">=17" else ">=21"
+	val mcCompat = if (project.hasProperty("mc_compat")) {
+		project.property("mc_compat").toString()
+	} else if (mcVer.startsWith("26.4")) {
+		">=26.4-alpha.1"
+	} else if (mcVer.startsWith("26.")) {
+		">=26.3-alpha.1"
+	} else if (mcVer.startsWith("1.20")) {
+		">=1.20.1 <1.20.2"
+	} else {
+		"~1.21.11"
+	}
+	val javaReq = if (mcVer.startsWith("26.")) ">=25" else if (mcVer.startsWith("1.20")) ">=17" else ">=21"
 	val props = mapOf(
 		"version" to project.version.toString(),
 		"minecraft_version" to mcVer,
 		"mc_compat" to mcCompat,
 		"java_version" to javaReq,
-		"java_release" to if (mcVer.startsWith("1.20")) 17 else 21
+		"java_release" to if (mcVer.startsWith("26.")) 25 else if (mcVer.startsWith("1.20")) 17 else 21,
+		"loader_version" to project.property("loader_version").toString()
 	)
 	inputs.properties(props)
 	filesMatching(listOf("fabric.mod.json", "readmyitem.mixins.json")) {
@@ -204,7 +228,7 @@ tasks.processResources {
 // 1.20.1 requires Java 17; 1.21.11 requires Java 21.
 val mcVersion = property("minecraft_version").toString()
 val javaVersion = if (mcVersion.startsWith("1.20")) JavaVersion.VERSION_17 else JavaVersion.VERSION_21
-val javaRelease = if (mcVersion.startsWith("1.20")) 17 else 21
+val javaRelease = if (mcVersion.startsWith("26.")) 25 else if (mcVersion.startsWith("1.20")) 17 else 21
 
 tasks.withType<JavaCompile>().configureEach {
 	options.encoding = "UTF-8"
@@ -246,4 +270,8 @@ publishing {
 
 tasks.matching { it.name == "stonecutterPrepare" }.configureEach {
 	dependsOn("downloadPiperVoices")
+}
+
+tasks.withType<net.fabricmc.loom.task.RemapSourcesJarTask>().configureEach {
+    enabled = false
 }

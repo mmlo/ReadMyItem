@@ -13,6 +13,8 @@
 	"readmyitem.hub.settings": "Settings",
 	"readmyitem.hub.download": "Restore official voice (optional)",
 	"readmyitem.hub.open_folder": "Open voice folder",
+	"readmyitem.hub.copy_folder": "Copy voice folder path",
+	"readmyitem.hub.folder_copied": "Path copied",
 	"readmyitem.hub.done": "Done",
 	"readmyitem.hub.voice_ready": "Voice found: %s",
 	"readmyitem.hub.voice_missing": "The bundled voice is not ready yet. The name will be displayed; speech will start when extraction finishes.",

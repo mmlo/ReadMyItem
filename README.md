@@ -3,7 +3,7 @@
 **Source Code / Issues:** [https://github.com/mmlo/ReadMyItem](https://github.com/mmlo/ReadMyItem)
 
 **Author:** mml  
-**Minecraft:** Java Edition **1.21.11** · **Loader:** Fabric · **Side:** Client only  
+**Minecraft:** Java Edition **1.20.1 / 1.21.11 / 26.3-snapshot-X / 26.3-rc-X** · **Loader:** Fabric · **Side:** Client only<br>
 **License:** GPL-3.0-or-later
 
 ---
@@ -145,3 +145,22 @@ Se o seu problema não estiver listado aqui, por favor [abra uma issue no GitHub
 
 **GPL-3.0-or-later**, porque o Piper in-process (piper-jni + nativos do Piper) é GPL no JAR combinado.  
 Modelos de voz: MIT, Rhasspy / autores Lessac, Faber e Edresson.
+
+
+## Builds para 26.3-snapshot-X, 26.3-rc-X e 26.4-snapshot-X
+
+Use os arquivos `build/libs/ReadMyItem-1.2.0+26.3-rc-2.jar` ou `build/libs/ReadMyItem-1.2.0+26.4-snapshot-1.jar`, com **Java 25**, **Fabric Loader 0.19.5 ou mais recente** e a **Fabric API correspondente à versão do Minecraft**. As vozes continuam embutidas. Instale apenas um JAR do ReadMyItem. Não instale o arquivo `-sources.jar`.
+
+Os nomes dos arquivos indicam o alvo de compilação; o JAR da 26.3 aceita toda a família **26.3-snapshot-X e 26.3-rc-X**, e o JAR da 26.4 aceita toda a família **26.4-snapshot-X e 26.4-rc-X**, sem teto numérico (incluindo eventuais snapshot-11, rc-3, etc). Na linha 26.x, o botão da pasta das vozes copia o caminho para a área de transferência.
+
+Essa aceitação não garante que APIs futuras permaneçam iguais: mudanças profundas no Minecraft ou Fabric API podem exigir nova build. Pré-releases e versões estáveis continuam fora da faixa aceita.
+
+Mod Menu e Cloth Config são opcionais; use versões compatíveis com a versão escolhida. APIs usadas na compilação: Mod Menu `21.0.0-beta.1` e Cloth Config `26.2.155`. Sem eles, a fala funciona e as opções ficam em `config/readmyitem.json`.
+
+Para compilar todas as versões, execute com JDK 25:
+
+```sh
+./gradlew build
+```
+
+Os JARs finais são reunidos em `build/libs/`. O build executa os testes sem abrir o Minecraft e mantém um único worker com heap de 1 GiB. As builds anteriores de 1.20.1 e 1.21.11 continuam separadas.

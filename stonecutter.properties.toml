@@ -17,3 +17,13 @@ mod.mc_compat = ">=1.20.1 <1.20.2"
 mod.mc_releases = ["1.20.1"]
 deps.fabric_api = "0.92.12+1.20.1"
 deps.fabric_loader = "0.15.11"
+
+["26.3-rc-2"]
+mod.mc_compat = [">=26.3-alpha.1 <26.3-beta", ">=26.3-rc.1 <26.3"]
+mod.mc_releases = ["26.3-rc-2"]
+deps.fabric_api = "0.160.4+26.3"
+
+["26.4-snapshot-1"]
+mod.mc_compat = [">=26.4-alpha.1 <26.4-beta", ">=26.4-rc.1 <26.4"]
+mod.mc_releases = ["26.4-snapshot-1"]
+deps.fabric_api = "0.161.1+26.4"

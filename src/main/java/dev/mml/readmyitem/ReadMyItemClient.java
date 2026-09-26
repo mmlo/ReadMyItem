@@ -11,7 +11,11 @@ import dev.mml.readmyitem.ui.LargeTextOverlay;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+//? if >= 26 {
+/*import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;*/
+//?} else {
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+//?}
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
@@ -31,17 +35,17 @@ public final class ReadMyItemClient implements ClientModInitializer {
 
 	public static final KeyMapping TOGGLE_KEY = new KeyMapping(
 			"key.readmyitem.toggle",
-			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getType(),
 			InputConstants.UNKNOWN.getValue(),
 			KEY_CATEGORY);
 	public static final KeyMapping REPEAT_KEY = new KeyMapping(
 			"key.readmyitem.repeat",
-			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getType(),
 			InputConstants.UNKNOWN.getValue(),
 			KEY_CATEGORY);
 	public static final KeyMapping STOP_KEY = new KeyMapping(
 			"key.readmyitem.stop",
-			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getType(),
 			InputConstants.UNKNOWN.getValue(),
 			KEY_CATEGORY);
 	//?} else {
@@ -49,17 +53,17 @@ public final class ReadMyItemClient implements ClientModInitializer {
 
 	public static final KeyMapping TOGGLE_KEY = new KeyMapping(
 			"key.readmyitem.toggle",
-			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getType(),
 			InputConstants.UNKNOWN.getValue(),
 			KEY_CATEGORY);
 	public static final KeyMapping REPEAT_KEY = new KeyMapping(
 			"key.readmyitem.repeat",
-			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getType(),
 			InputConstants.UNKNOWN.getValue(),
 			KEY_CATEGORY);
 	public static final KeyMapping STOP_KEY = new KeyMapping(
 			"key.readmyitem.stop",
-			InputConstants.Type.KEYSYM,
+			InputConstants.UNKNOWN.getType(),
 			InputConstants.UNKNOWN.getValue(),
 			KEY_CATEGORY);*/
 	//?}
@@ -83,13 +87,29 @@ public final class ReadMyItemClient implements ClientModInitializer {
 		extract.setDaemon(true);
 		extract.start();
 
+		//? if >= 26 {
+		/*KeyMappingHelper.registerKeyMapping(TOGGLE_KEY);*/
+		//?} else {
 		KeyBindingHelper.registerKeyBinding(TOGGLE_KEY);
+		//?}
+		//? if >= 26 {
+		/*KeyMappingHelper.registerKeyMapping(REPEAT_KEY);*/
+		//?} else {
 		KeyBindingHelper.registerKeyBinding(REPEAT_KEY);
+		//?}
+		//? if >= 26 {
+		/*KeyMappingHelper.registerKeyMapping(STOP_KEY);*/
+		//?} else {
 		KeyBindingHelper.registerKeyBinding(STOP_KEY);
+		//?}
 
 		ScreenEvents.AFTER_INIT.register((client, screen, width, height) -> {
 			if (screen instanceof AbstractContainerScreen<?>) {
+				//? if >= 26 {
+				/*ScreenEvents.afterExtract(screen).register((s, graphics, mouseX, mouseY, delta) ->*/
+				//?} else {
 				ScreenEvents.afterRender(screen).register((s, graphics, mouseX, mouseY, delta) ->
+				//?}
 						LargeTextOverlay.render(graphics, s));
 			}
 		});
@@ -120,7 +140,11 @@ public final class ReadMyItemClient implements ClientModInitializer {
 		}
 		missingVoiceToastShown = true;
 		if (client != null && client.gui != null) {
+			//? if >= 26 {
+			/*client.gui.hud.setOverlayMessage(Component.translatable("readmyitem.missing_voice"), false);*/
+			//?} else {
 			client.gui.setOverlayMessage(Component.translatable("readmyitem.missing_voice"), false);
+			//?}
 		}
 		ReadMyItemMod.LOGGER.warn("[ReadMyItem] {}", Component.translatable("readmyitem.missing_voice").getString());
 	}
@@ -168,7 +192,11 @@ public final class ReadMyItemClient implements ClientModInitializer {
 			HoverTracker.repeatLast();
 		}
 
+		//? if >= 26 {
+		/*if (!(client.gui.screen() instanceof AbstractContainerScreen<?>)) {*/
+		//?} else {
 		if (!(client.screen instanceof AbstractContainerScreen<?>)) {
+		//?}
 			HoverTracker.onLeftContainer();
 		}
 		HoverTracker.tick();
