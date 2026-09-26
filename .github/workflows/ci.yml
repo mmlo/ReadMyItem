@@ -1,0 +1,61 @@
+name: CI / CD
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+  pull_request:
+    branches: [ "main" ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build Mod
+        run: ./gradlew build --no-daemon
+
+      - name: Upload Workspace Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test-Builds
+          path: build/libs/*.jar
+
+      - name: Publish to CurseForge & GitHub Releases
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-id: 1685560
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+          files: |
+            build/libs/ReadMyItem-*.jar
+            !build/libs/*-dev.jar
+            !build/libs/*-sources.jar
+          
+          name: ReadMyItem ${{ github.ref_name }}
+          version: ${{ github.ref_name }}
+          version-type: release
+          changelog: "Veja o log de alterações na página do projeto no GitHub ou CurseForge."
