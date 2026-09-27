@@ -10,7 +10,7 @@ plugins {
 	id("maven-publish")
 }
 
-version = "${property("mod_version")}+${if (project.name == "26.3-rc-2") "26.3-all" else project.name}"
+version = "${property("mod_version")}+${if (project.name == "26.3-rc-2") "26.3-all" else if (project.name.startsWith("26.4")) "26.4-all" else project.name}"
 group = property("maven_group") as String
 
 base {

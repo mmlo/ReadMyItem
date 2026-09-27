@@ -14,6 +14,9 @@ on:
       - 'docs/**'
   workflow_dispatch:
     inputs:
+      version_name:
+        description: 'Nome da versão (ex: 1.2.0)'
+        required: false
       version_type:
         description: 'Tipo de Lançamento (release, beta, alpha)'
         required: true
@@ -63,8 +66,8 @@ jobs:
           curseforge-id: 1685560
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          files: build/libs/ReadMyItem-*+26.4-snapshot-1.jar
+          files: build/libs/ReadMyItem-*+26.4-all.jar
           game-versions: ">=26.3-alpha.1"
-          name: ReadMyItem ${{ github.ref_name }}
-          version: ${{ github.ref_name }}
+          name: ReadMyItem ${{ inputs.version_name || github.ref_name }}
+          version: ${{ inputs.version_name || github.ref_name }}
           version-type: ${{ inputs.version_type || 'release' }}
