@@ -64,7 +64,7 @@ jobs:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           files: build/libs/ReadMyItem-*+26.4-snapshot-1.jar
-          game-versions: 26.4-snapshot
+          game-versions: 26.3-snapshot
           name: ReadMyItem ${{ github.ref_name }}
           version: ${{ github.ref_name }}
           version-type: ${{ inputs.version_type || 'release' }}
