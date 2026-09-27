@@ -68,6 +68,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           files: build/libs/ReadMyItem-*+26.4-all.jar
           game-versions: ">=26.3-alpha.1"
-          name: ReadMyItem ${{ inputs.version_name || github.ref_name }}
-          version: ${{ inputs.version_name || github.ref_name }}
+          name: ""
           version-type: ${{ inputs.version_type || 'release' }}
