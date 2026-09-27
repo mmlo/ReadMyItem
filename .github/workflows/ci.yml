@@ -13,6 +13,20 @@ on:
       - '**.md'
       - 'docs/**'
   workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Tipo de Lançamento (release, beta, alpha)'
+        required: true
+        default: 'release'
+        type: choice
+        options:
+          - release
+          - beta
+          - alpha
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -57,5 +71,4 @@ jobs:
           
           name: ReadMyItem ${{ github.ref_name }}
           version: ${{ github.ref_name }}
-          version-type: release
-          changelog: "Veja o log de alterações na página do projeto no GitHub ou CurseForge."
+          version-type: ${{ inputs.version_type || 'release' }}
