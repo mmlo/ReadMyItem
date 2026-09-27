@@ -1,0 +1,9 @@
+name: Check CF Versions
+on: [workflow_dispatch]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -s -H "x-api-token: ${{ secrets.CURSEFORGE_TOKEN }}" https://minecraft.curseforge.com/api/game/versions > versions.json
+      - run: cat versions.json | grep -o '26\.[34][^"]*' || true
+      - run: cat versions.json | grep -i '26\.4' || true
